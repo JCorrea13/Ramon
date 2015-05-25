@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:background="@color/blanco" android:layout_height="match_parent" tools:context="com.ramon.umg.ramon.Fragment1">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageButton
+        android:src="@drawable/flecha_adelante"
+        android:background="@color/blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibAdelante"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:src="@drawable/flecha_derecha"
+        android:background="@color/blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibDerecha"
+        android:layout_alignTop="@+id/ibIzquierda"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:src="@drawable/flecha_izquierda"
+        android:background="@color/blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibIzquierda"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:src="@drawable/flecha_abajo"
+        android:background="@color/blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibAbajo"
+        android:layout_below="@+id/ibArriba"
+        android:layout_alignLeft="@+id/ibArriba"
+        android:layout_alignStart="@+id/ibArriba" />
+
+    <ImageButton
+        android:src="@drawable/flecha_arriba"
+        android:background="@color/blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibArriba"
+        android:layout_below="@+id/ibAdelante"
+        android:layout_alignLeft="@+id/ibAdelante"
+        android:layout_alignStart="@+id/ibAdelante"
+        android:layout_marginTop="18dp" />
+
+    <ImageButton
+        android:src="@drawable/flecha_atras"
+        android:background="@color/blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibAtras"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/ibAbajo"
+        android:layout_alignLeft="@+id/ibAbajo"
+        android:layout_alignStart="@+id/ibAbajo" />
+
+    <ImageButton
+        android:src="@drawable/aterrizaje"
+        android:background="@color/blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibAterrizaje"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="clickAterrizaje"
+        />
+
+
+</RelativeLayout>

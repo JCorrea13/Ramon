@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Ramon</string>
+
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="EstadoConexion0">Desconectado</string>
+    <string name="EstadoConexion1">Conectado</string>
+    <string name="ListaSensores">Lista de Sensores:</string>
+    <string name="nullinfo">No se ha recibido información.</string>
+</resources>
