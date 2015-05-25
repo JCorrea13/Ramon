@@ -1,9 +1,52 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:background="@color/blanco" android:layout_height="match_parent" tools:context="com.ramon.umg.ramon.Fragment3">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        />
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/ivBaseTerrena" />
 
-</FrameLayout>
+    <ImageView
+        android:src="@drawable/posicion_terrena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivBaseTerrena"
+        android:layout_above="@+id/tvBaseAerea"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/BTerrena"
+        android:id="@+id/tvBaseTerrena"
+        android:layout_above="@+id/tvBaseAerea"
+        android:layout_toRightOf="@+id/ivBaseTerrena"
+        android:layout_toEndOf="@+id/ivBaseTerrena" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivBaseAerea"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/BAerea"
+        android:id="@+id/tvBaseAerea"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/ivBaseAerea"
+        android:layout_toEndOf="@+id/ivBaseAerea" />
+
+</RelativeLayout>
