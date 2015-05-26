@@ -138,7 +138,7 @@ public class FlightControls extends FragmentActivity{  //Activity principal
                 vib.vibrate(200);
                 //if(!hiloPruebaConexion.isInterrupted())
                     //hiloPruebaConexion.resume();
-                makeToast("No su pudo conectar con Ramon");
+                makeToast("No se pudo conectar con Ramon");
             }
 
         }catch (IOException e) {
