@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ramon.umg.ramon" >
 
+    <!--Permisos-->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.ramon.umg.ramon.permission.MAPS_RECEIVE"/>
@@ -12,6 +13,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
+    <!--Features-->
     <uses-feature android:name="android.hardware.usb.accessory" />
     <uses-feature android:name="android.hardware.usb.UsbManager" />
     <uses-feature android:name="android.hardware.usb.UsbDevice" />
@@ -23,6 +25,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!--Lista de activitys-->
         <activity
             android:name=".FlightControls"
             android:label="@string/app_name"
@@ -37,11 +41,13 @@
                 android:resource="@xml/device_filter" />
         </activity>
 
+        <!--Caracteristicas del permiso de Google Maps-->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/GOOGLE_KEY" />
+
     </application>
 </manifest>

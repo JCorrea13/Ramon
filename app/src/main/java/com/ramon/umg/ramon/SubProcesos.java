@@ -64,13 +64,12 @@ public class SubProcesos {
          */
         @Override
         public void run() {
-
-                FlightControls.actualizaEstadoConexion();
-                if(FlightControls.getContadorErrorPruebaConxion() > Conexion.getLimiteReconexionAutomatica()) {
-                    FlightControls.btnActualizar.setVisibility(View.VISIBLE);
-                    FlightControls.resetContadorErrorPruebaConxion();
-                }
-                FlightControls.banderaEstadoConexion = false;
+            FlightControls.actualizaEstadoConexion();
+            if(FlightControls.getContadorErrorPruebaConxion() > Conexion.getLimiteReconexionAutomatica()) {
+                FlightControls.btnActualizar.setVisibility(View.VISIBLE);
+                FlightControls.resetContadorErrorPruebaConxion();
+            }
+            FlightControls.banderaEstadoConexion = false;
 
         }
     }

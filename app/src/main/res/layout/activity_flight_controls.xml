@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:background="@color/blanco" android:layout_height="match_parent" tools:context="com.ramon.umg.ramon.Fragment1">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--Este diseño se muestra durante tdo el ciclo de la aplicacion, y utiliza un fragment (clase
+    PagerAdapater) paral las 3 diferentes páginas: controles, sensores y mapeo.-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/EstadoConexion0"
+        android:textSize="30sp"
         android:id="@+id/tvEstadoConexion"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -20,11 +22,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/ibReload"
         android:background="@color/blanco"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="clickActualizar" />
+        android:layout_alignParentEnd="true" />
 
     <android.support.v4.view.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,7 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".FlightControls"
-        android:layout_below="@+id/ibReload" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Menu3Layout" />
 
     <ImageButton
         android:src="@drawable/power"
@@ -46,5 +50,46 @@
         android:layout_alignParentStart="true"
         android:background="@color/blanco"
         android:onClick="clickPower" />
+
+    <LinearLayout
+        android:id="@+id/Menu3Layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:layout_below="@+id/tvEstadoConexion"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_section1"
+            android:textSize="18sp"
+            android:background="@color/blanco"
+            android:id="@+id/bControles"
+            android:layout_weight="1"
+            android:onClick="botonControles" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_section2"
+            android:textSize="18sp"
+            android:background="@color/blanco"
+            android:id="@+id/bSensores"
+            android:layout_weight="1"
+            android:onClick="botonSensores" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_section3"
+            android:textSize="18sp"
+            android:background="@color/blanco"
+            android:id="@+id/bMapa"
+            android:layout_weight="1"
+            android:onClick="botonMapeo" />
+    </LinearLayout>
 
 </RelativeLayout>

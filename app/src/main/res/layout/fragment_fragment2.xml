@@ -3,7 +3,8 @@
     android:layout_height="match_parent" tools:context="com.ramon.umg.ramon.Fragment2"
     android:background="@color/blanco">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--2 pagina del adapter: sensores. Cuidado con los TextView invisibles ques e deben de ir habilitando
+    durante el ciclo de la aplicacion-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,10 +32,73 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Información desactualizada, no hay conexión."
+        android:text="@string/infoDesactualizada"
         android:id="@+id/tvSensoresDesactualizados"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/sensorGPS"
+        android:id="@+id/tvGPS"
+        android:layout_below="@+id/tvInfoSensores"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tvInfoGPS"
+        android:layout_below="@+id/tvInfoSensores"
+        android:layout_toRightOf="@+id/tvGPS"
+        android:layout_toEndOf="@+id/tvGPS" />
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/sensorGyro"
+        android:id="@+id/tvGyro"
+        android:layout_below="@+id/tvGPS"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tvInfoGyro"
+        android:layout_above="@+id/tvInfoTemp"
+        android:layout_toRightOf="@+id/tvGyro"
+        android:layout_toEndOf="@+id/tvGyro" />
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/sensorTemp"
+        android:id="@+id/tvTemp"
+        android:layout_below="@+id/tvGyro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tvInfoTemp"
+        android:layout_alignTop="@+id/tvTemp"
+        android:layout_toRightOf="@+id/tvTemp"
+        android:layout_toEndOf="@+id/tvTemp" />
 
 </RelativeLayout>

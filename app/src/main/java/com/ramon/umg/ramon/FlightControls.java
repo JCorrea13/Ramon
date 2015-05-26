@@ -2,12 +2,14 @@ package com.ramon.umg.ramon;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import java.io.IOException;
  * POR FAVOR, SIEMPRE HAY QUE LEER LOS COMENTARIOS Y DOCUMENTACION ANTES DE MODIFICAR CODIGO, Y CUANDO LO HAGAS
  * DEJA UN COMENTARIO INDICANDO LO QUE HACE
  *
+ * OpenSource
  * FlighControls es la Activity main del proyecto
  */
 public class FlightControls extends FragmentActivity{  //Activity principal
@@ -50,26 +53,48 @@ public class FlightControls extends FragmentActivity{  //Activity principal
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        try {
         setContentView(R.layout.activity_flight_controls);
+
         vib = (Vibrator)this.getApplicationContext().getSystemService(getApplicationContext().VIBRATOR_SERVICE);
         tvconexion = (TextView)findViewById(R.id.tvEstadoConexion);
         viewpager = (ViewPager)findViewById(R.id.pager);
         PagerAdapter padapter = new PagerAdapter(getSupportFragmentManager());
         viewpager.setAdapter(padapter);
-        fly = this;
-
-        //hacemos referencia a los miembros del XML
+        super.onCreate(savedInstanceState);
         btnActualizar = (ImageButton)findViewById(R.id.ibReload);
         btnPower = (ImageButton)findViewById(R.id.ibPower);
 
-        //inicializamos conexion (Puerto Serial)
-        Conexion.setConexion(this, 57600);
-        Conexion.setTiempoCompruebaConexion(2000);
-        Conexion.setLimiteReconexionAutomatica(3);
-        Util.makeToast("Inicio");
+        btnActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vib.vibrate(200);
+                try {
+                    Thread.sleep(1000); //Dormimos el hilo un segundo para esperar los datos de Ramon
+                    if (Torre.inicioConexion()) {
+                        //if(hiloPruebaConexion.isInterrupted())
+                        //hiloPruebaConexion.run();
+                        makeToast("Conexion establecida");
+                    } else {
+                        //if(!hiloPruebaConexion.isInterrupted())
+                        //hiloPruebaConexion.resume();
+                        makeToast("No se pudo conectar con Ramon");
+                    }
+                } catch (Exception e) {
+                    //if(!hiloPruebaConexion.isInterrupted())
+                    //hiloPruebaConexion.resume();
+                    makeToast("Error al tratar de establecer la comunicacion");
+                    e.printStackTrace();
+                }
+            }
+        });
 
+        try {
+            fly = this;
+            //inicializamos conexion (Puerto Serial)
+            Conexion.setConexion(this, 57600);
+            Conexion.setTiempoCompruebaConexion(2000);
+            Conexion.setLimiteReconexionAutomatica(3);
+            Util.makeToast("Inicio");
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,9 +105,11 @@ public class FlightControls extends FragmentActivity{  //Activity principal
             @Override
             public void onPageScrolled(int i, float v, int i2) {
             }
+
             @Override
             public void onPageSelected(int i) {
             }
+
             @Override
             public void onPageScrollStateChanged(int i) {
                 if (viewpager.getCurrentItem() == 0)
@@ -102,51 +129,25 @@ public class FlightControls extends FragmentActivity{  //Activity principal
      * se pierde o se recupera la conexión.
      */
     public static synchronized void actualizaEstadoConexion(){
+        //Si la bandera de conexion es 1 y el texto de conexion no es nulo
         if (banderaEstadoConexion && (tvconexion != null)) {
             tvconexion.setText(new ContextThemeWrapper().getResources().getString(R.string.EstadoConexion1));
             tvconexion.setTextColor(new ContextThemeWrapper().getResources().getColor(R.color.verde));
             btnPower.setVisibility(View.VISIBLE);
             btnActualizar.setVisibility(View.INVISIBLE);
-            //Fragment2.actualizarSensores(textSensores);
+            Fragment2.actualizarSensores("PONER AQUI DATOS DE LOS SENSORES SIN EXTRAER");
             contadorErrorPruebaConxion = 0;
         }
+        //La bandera es cero y si no es nulo el textview
         else if (tvconexion != null) {
             tvconexion.setText(new ContextThemeWrapper().getResources().getString(R.string.EstadoConexion0));
             tvconexion.setTextColor(new ContextThemeWrapper().getResources().getColor(R.color.rojo));
             if(btnPower != null)
                 btnPower.setVisibility(View.INVISIBLE);
             if(btnActualizar != null)
-            btnActualizar.setVisibility(View.INVISIBLE);
+            btnActualizar.setVisibility(View.VISIBLE);
             Fragment2.avisoSensoresDesactualizados();
             sumarContadorErrorPruebaConxion();
-        }
-    }
-
-    /**
-     * clickActualizar: Envia un bit al arduino y espera la respueta de este, si esta llega, se establece el modo conectado,
-     * si no, se mantiene la desconexión.
-     * @param v
-     */
-    public void clickActualizar(View v){
-        try {
-            if(Torre.inicioConexion()) {
-                vib.vibrate(200);
-                //if(hiloPruebaConexion.isInterrupted())
-                    //hiloPruebaConexion.run();
-                makeToast("Conexion establecida");
-            }else{
-                vib.vibrate(200);
-                //if(!hiloPruebaConexion.isInterrupted())
-                    //hiloPruebaConexion.resume();
-                makeToast("No se pudo conectar con Ramon");
-            }
-
-        }catch (IOException e) {
-            vib.vibrate(200);
-            //if(!hiloPruebaConexion.isInterrupted())
-                //hiloPruebaConexion.resume();
-            makeToast("Error al tratar de establecer la comunicacion");
-            e.printStackTrace();
         }
     }
 
@@ -199,6 +200,18 @@ public class FlightControls extends FragmentActivity{  //Activity principal
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void botonControles(View view){
+        viewpager.setCurrentItem(0, true);
+    }
+
+    public void botonSensores(View view){
+        viewpager.setCurrentItem(1, true);
+    }
+
+    public void botonMapeo(View view){
+        viewpager.setCurrentItem(2, true);
     }
 
     /**

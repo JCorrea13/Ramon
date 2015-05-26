@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 /**
  * Created by LUIS ALFONSO on 29/03/2015.
+ * Fragment adaptador de las 3 paginas que se muestran en la app.
  */
 public class PagerAdapter extends FragmentPagerAdapter {
     public PagerAdapter(FragmentManager fm) {

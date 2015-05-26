@@ -1,15 +1,13 @@
 <resources>
+    <!--Basicos, no cambiar-->
     <string name="app_name">Ramon</string>
-
-
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
+    <string name="title_section1">Controles</string>
+    <string name="title_section2">Sensores</string>
+    <string name="title_section3">Mapeo</string>
     <string name="action_settings">Settings</string>
     <string name="GOOGLE_KEY">AIzaSyCYzbXNN1OYL-r4zwH0tliVgh471gnsSJ4</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!--Strings de la app-->
     <string name="EstadoConexion0">Desconectado</string>
     <string name="EstadoConexion1">Conectado</string>
     <string name="ListaSensores">Lista de Sensores:</string>
@@ -17,4 +15,7 @@
     <string name="infoDesactualizada">Información desactualizada, no hay conexión.</string>
     <string name="BTerrena">Base Terrena</string>
     <string name="BAerea">Base Aérea</string>
+    <string name="sensorGPS">GPS: </string>
+    <string name="sensorGyro">Giroscopio: </string>
+    <string name="sensorTemp">Temperatura: </string>
 </resources>

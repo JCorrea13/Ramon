@@ -72,8 +72,10 @@ public class Conexion{
 
             byte buffer[] = new byte[8];
             int numBytesRead = driver.read(buffer, 8);
-            if(numBytesRead > 0)
+            if(numBytesRead > 0) {
                 FlightControls.banderaEstadoConexion = true;
+                FlightControls.actualizaEstadoConexion();
+            }
             datos = buffer.toString();
         }catch (IOException e) {
             System.out.println("Error en la lectura de datos");

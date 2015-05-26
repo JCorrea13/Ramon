@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:background="@color/blanco" android:layout_height="match_parent" tools:context="com.ramon.umg.ramon.Fragment1">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--Primer pagina del fragment, contiene los controles de vuelo-->
 
     <ImageButton
         android:src="@drawable/flecha_adelante"

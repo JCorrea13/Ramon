@@ -10,6 +10,11 @@ import java.io.IOException;
  */
 public class Torre{
 
+    //CORREA: NO SERA BUEN IDEA HACER UN METODO QUE LLAMEN TODOS LOS LOS METODOS QUE ENVIAN UN COMANDO
+    //EN EL QUE COMPRUEBEN PRIMERO SI ESTA CONECTADA LA ANTENA??? PARA ENVIAR UN MENSAJE DE QUE NO HAY
+    //ANTENA O LO QUE SEA...
+
+
     public static final char MODO_ESTATICO = '0';
     public static final char DIR_IZQUIERDA = '1';
     public static final char DIR_DERECHA = '2';
@@ -51,7 +56,7 @@ public class Torre{
     }
     public static boolean inicioConexion() throws IOException{
 
-        //Conexion.escribe((byte)INICIO_CONEXION);
+        Conexion.escribe((byte)INICIO_CONEXION);
         if(Conexion.pruebaConexion())
             return true;
         else

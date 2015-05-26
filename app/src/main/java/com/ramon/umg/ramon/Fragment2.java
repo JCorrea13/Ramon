@@ -12,20 +12,46 @@ import android.widget.Toast;
 
 public class Fragment2 extends Fragment {
     /**
-     * tvSensores: TextView que muestra los datos enviados por los sensores del drone.
-     */
-    private static volatile TextView tvSensores;
-    /**
      * tvSensoresDesactualizados: TextView predefinido, que se hace visible sí y solo sí se desconecta el drone.
      */
     private static TextView tvSensoresDesactualizados;
+    /**
+     * tvSensorGPS: TextView con string GPS: .
+     */
+    private static TextView tvSensorGPS;
+    /**
+     * tvSensorGyro: TextView con string Giroscopio: .
+     */
+    private static TextView tvSensorGyro;
+    /**
+     * tvSensorTemp: TextView con string Temperatura: .
+     */
+    private static TextView tvSensorTemp;
+    /**
+     * tvDatosGps: TextView para modificar e imprimir datos actuales del sensor.
+     */
+    private static TextView tvDatosGPS;
+    /**
+     * tvDatosGyro: TextView para modificar e imprimir datos actuales del sensor.
+     */
+    private static TextView tvDatosGyro;
+    /**
+     * tvDatosTemp: TextView para modificar e imprimir datos actuales del sensor.
+     */
+    private static TextView tvDatosTemp;
+    private static boolean primerConexion = false; //La primera vez que se conecta muestra los sensores y ya se quedan alli, esta bandera se encarga de eso.
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment2, container, false);
-        tvSensores = (TextView)view.findViewById(R.id.tvInfoSensores);
         tvSensoresDesactualizados = (TextView)view.findViewById(R.id.tvSensoresDesactualizados);
+        tvSensorGPS = (TextView)view.findViewById(R.id.tvGPS);
+        tvSensorGyro = (TextView)view.findViewById(R.id.tvGyro);
+        tvSensorTemp = (TextView)view.findViewById(R.id.tvTemp);
+        tvDatosGPS = (TextView)view.findViewById(R.id.tvInfoGPS);
+        tvDatosGyro = (TextView)view.findViewById(R.id.tvInfoGyro);
+        tvDatosTemp = (TextView)view.findViewById(R.id.tvInfoTemp);
         //tvSensores.post(Conexion.hiloListernerSerial);
         return view;
     }
@@ -35,14 +61,26 @@ public class Fragment2 extends Fragment {
      * @param text es el texto, ya con el formato, que se mostrará al usuario en la app.
      */
     public static synchronized void actualizarSensores(String text){
-
+        if (!primerConexion){
+            primerConexion = true;
+            tvSensorGPS.setVisibility(View.VISIBLE);
+            tvSensorGyro.setVisibility(View.VISIBLE);
+            tvSensorTemp.setVisibility(View.VISIBLE);
+            tvDatosGPS.setVisibility(View.VISIBLE);
+            tvDatosGyro.setVisibility(View.VISIBLE);
+            tvDatosTemp.setVisibility(View.VISIBLE);
+        }
         if(tvSensoresDesactualizados != null)
             tvSensoresDesactualizados.setVisibility(View.INVISIBLE);
-        if (!text.isEmpty() && tvSensores != null) {
-            tvSensores.setText(text);
-            makeToast("los datos no son nulos, pero no se nota");
-        }else
-            makeToast("los datos son nulos");
+        if (!text.isEmpty()) {
+            //AQUI HAY QUE EXTRAER LOS DATOS DE LOS SENSORES Y ACOMODARLOS EN SUS VARIABLES:
+            String GPS = "";
+            String Gyro = "";
+            String Temp = "";
+            tvDatosGPS.setText(GPS);
+            tvDatosGyro.setText(Gyro);
+            tvDatosTemp.setText(Temp);
+        }
     }
 
     /**

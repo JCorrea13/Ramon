@@ -167,8 +167,6 @@ public class Fragment1 extends Fragment {
      * inicializarBotones: Reinicia el estado de los botones del control de vuelo.
      */
     public static void inicializarBotones(){
-        //ACTUALIZAR CUANDO TENGAMOS EL PROTOCOLO CON EL QUE LE DIREMOS EL MOVIENTO AL ARDUINO, PUES
-        //ESTE METODO DEBE REINICIAR LOS BOTONES, LO QUE INDICA QUE YA NO ESTAN SIENDO PRESIONADOS
         bAdelante.setImageResource(R.drawable.flecha_adelante);
         bAtras.setImageResource(R.drawable.flecha_atras);
         bDerecha.setImageResource(R.drawable.flecha_derecha);
