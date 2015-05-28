@@ -50,9 +50,13 @@ public class FlightControls extends FragmentActivity{  //Activity principal
     public static volatile ImageButton btnActualizar;
     public static FlightControls fly;
 
+    private Button botonP1;
+    private Button botonP2;
+    private Button botonP3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_controls);
 
         vib = (Vibrator)this.getApplicationContext().getSystemService(getApplicationContext().VIBRATOR_SERVICE);
@@ -60,9 +64,12 @@ public class FlightControls extends FragmentActivity{  //Activity principal
         viewpager = (ViewPager)findViewById(R.id.pager);
         PagerAdapter padapter = new PagerAdapter(getSupportFragmentManager());
         viewpager.setAdapter(padapter);
-        super.onCreate(savedInstanceState);
         btnActualizar = (ImageButton)findViewById(R.id.ibReload);
         btnPower = (ImageButton)findViewById(R.id.ibPower);
+        botonP1 = (Button)findViewById(R.id.bControles);
+        botonP2 = (Button)findViewById(R.id.bSensores);
+        botonP3 = (Button)findViewById(R.id.bMapa);
+        sombrearMenu(0);
 
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,16 +80,16 @@ public class FlightControls extends FragmentActivity{  //Activity principal
                     if (Torre.inicioConexion()) {
                         //if(hiloPruebaConexion.isInterrupted())
                         //hiloPruebaConexion.run();
-                        makeToast("Conexion establecida");
+                        Util.makeToast("Conexion establecida");
                     } else {
                         //if(!hiloPruebaConexion.isInterrupted())
                         //hiloPruebaConexion.resume();
-                        makeToast("No se pudo conectar con Ramon");
+                        Util.makeToast("No se pudo conectar con Ramon");
                     }
                 } catch (Exception e) {
                     //if(!hiloPruebaConexion.isInterrupted())
                     //hiloPruebaConexion.resume();
-                    makeToast("Error al tratar de establecer la comunicacion");
+                    Util.makeToast("Error al tratar de establecer la comunicacion");
                     e.printStackTrace();
                 }
             }
@@ -108,6 +115,7 @@ public class FlightControls extends FragmentActivity{  //Activity principal
 
             @Override
             public void onPageSelected(int i) {
+                sombrearMenu(i);
             }
 
             @Override
@@ -162,11 +170,11 @@ public class FlightControls extends FragmentActivity{  //Activity principal
         Toast toast;
         if (aterrizaje) {
             Torre.guardarTrenAterrizaje();
-            makeToast("Guardando Patín de Aterrizaje");
+            Util.makeToast("Guardando Patín de Aterrizaje");
             aterrizaje = false;
         } else {
             Torre.despliegaTrenAterrizaje();
-            makeToast("Desplegando Patín de Aterrizaje");
+            Util.makeToast("Desplegando Patín de Aterrizaje");
             aterrizaje = true;
         }
     }
@@ -204,23 +212,37 @@ public class FlightControls extends FragmentActivity{  //Activity principal
 
     public void botonControles(View view){
         viewpager.setCurrentItem(0, true);
+        sombrearMenu(0);
     }
 
     public void botonSensores(View view){
         viewpager.setCurrentItem(1, true);
+        sombrearMenu(1);
     }
 
     public void botonMapeo(View view){
         viewpager.setCurrentItem(2, true);
+        sombrearMenu(2);
     }
 
-    /**
-     * makeToast: Crea un toast con el texto que se le envíe.
-     * @param texto : Es el texto a mostrar.
-     */
-    private void makeToast(String texto){
-        Toast toast = Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_SHORT);
-        toast.show();
+    private void sombrearMenu(int pagina){
+        switch(pagina){
+            case 0:
+                botonP1.setBackgroundColor(getResources().getColor(R.color.grisMenu));
+                botonP2.setBackgroundColor(getResources().getColor(R.color.blanco));
+                botonP3.setBackgroundColor(getResources().getColor(R.color.blanco));
+                break;
+            case 1:
+                botonP1.setBackgroundColor(getResources().getColor(R.color.blanco));
+                botonP2.setBackgroundColor(getResources().getColor(R.color.grisMenu));
+                botonP3.setBackgroundColor(getResources().getColor(R.color.blanco));
+                break;
+            case 2:
+                botonP1.setBackgroundColor(getResources().getColor(R.color.blanco));
+                botonP2.setBackgroundColor(getResources().getColor(R.color.blanco));
+                botonP3.setBackgroundColor(getResources().getColor(R.color.grisMenu));
+                break;
+        }
     }
 
     public static synchronized void sumarContadorErrorPruebaConxion(){

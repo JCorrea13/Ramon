@@ -5,5 +5,6 @@
     <color name="rojo">#F08080</color>
     <color name="verde">#98FB98</color>
     <color name="negro">#000000</color>
+    <color name="grisMenu">#F0EBEB</color>
 
 </resources>

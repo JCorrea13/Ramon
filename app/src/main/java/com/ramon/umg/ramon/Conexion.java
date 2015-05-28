@@ -137,7 +137,8 @@ public class Conexion{
 
     public static void cerrarPuerto(){
         try {
-            driver.close();
+            if (driver != null)
+                driver.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

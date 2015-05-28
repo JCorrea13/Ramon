@@ -39,6 +39,10 @@ public class Fragment2 extends Fragment {
      * tvDatosTemp: TextView para modificar e imprimir datos actuales del sensor.
      */
     private static TextView tvDatosTemp;
+
+    static public double latitud = 20.637234;    //PONER VERDADERA LAT Y LONG DE RAMON
+    static public double longitud = -103.406499;
+
     private static boolean primerConexion = false; //La primera vez que se conecta muestra los sensores y ya se quedan alli, esta bandera se encarga de eso.
 
     @Nullable
@@ -75,6 +79,8 @@ public class Fragment2 extends Fragment {
         if (!text.isEmpty()) {
             //AQUI HAY QUE EXTRAER LOS DATOS DE LOS SENSORES Y ACOMODARLOS EN SUS VARIABLES:
             String GPS = "";
+            latitud = 20.637234;    //PONER VERDADERA LAT Y LONG DE RAMON
+            longitud = -103.406499;
             String Gyro = "";
             String Temp = "";
             tvDatosGPS.setText(GPS);

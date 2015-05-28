@@ -16,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 /**
@@ -29,6 +31,8 @@ import com.google.android.gms.maps.model.LatLng;
 public class Fragment3 extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap.OnMyLocationChangeListener LocationCListener;
+    private Marker marker;
+    private LatLng latylon;
 
     @Nullable
     @Override
@@ -44,7 +48,11 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
         final GoogleMap map2 = map;
-        map.setMyLocationEnabled(true);
+        latylon = new LatLng(Fragment2.latitud, Fragment2.longitud);
+        map2.setMyLocationEnabled(true);
+
+        marker = map.addMarker(new MarkerOptions()
+                .position(latylon));
 
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -66,6 +74,8 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
                 if(map2 != null){
                     map2.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
                     map2.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                    marker = map2.addMarker(new MarkerOptions()
+                            .position(latylon));
                 }
             }
         };
