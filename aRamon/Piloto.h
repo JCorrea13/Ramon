@@ -63,6 +63,6 @@ class Piloto{
                 void confirmaConexion();
 	public:
 		Piloto(const int,const int,const int,const int,const int);
-		void desplazar(int);
+		void desplazar(char);
                 void setVoltajes(int, int, int, int); // este metodo setea los valores para voltajeAlto,voltajeMedio, voltajeBajo, voltajeApagado
 };

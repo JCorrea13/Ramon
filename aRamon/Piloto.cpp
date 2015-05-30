@@ -130,8 +130,7 @@ void Piloto :: confirmaConexion(){
       Serial.write(CONFIMACION_CONEXION);
 }
 
-void Piloto :: desplazar(int direccion){
-
+void Piloto :: desplazar(char direccion){
 	switch(direccion){
 		case MODO_ESTATICO:
 				setConfi_DirModoEstatico();
