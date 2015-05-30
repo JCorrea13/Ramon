@@ -39,9 +39,11 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/Menu3Layout" />
 
+
+    <!--android:visibility="invisible"      COMENTADO PARA VERSION ESTABLE(en boton power)-->
     <ImageButton
         android:src="@drawable/power"
-        android:visibility="invisible"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibPower"

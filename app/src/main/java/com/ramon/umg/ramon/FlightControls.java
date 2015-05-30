@@ -141,8 +141,11 @@ public class FlightControls extends FragmentActivity{  //Activity principal
         if (banderaEstadoConexion && (tvconexion != null)) {
             tvconexion.setText(new ContextThemeWrapper().getResources().getString(R.string.EstadoConexion1));
             tvconexion.setTextColor(new ContextThemeWrapper().getResources().getColor(R.color.verde));
-            btnPower.setVisibility(View.VISIBLE);
-            btnActualizar.setVisibility(View.INVISIBLE);
+
+            //COMENTADO PARA VERSION ESTABLE
+            //btnPower.setVisibility(View.VISIBLE);
+            //btnActualizar.setVisibility(View.INVISIBLE);
+
             Fragment2.actualizarSensores("PONER AQUI DATOS DE LOS SENSORES SIN EXTRAER");
             contadorErrorPruebaConxion = 0;
         }
@@ -150,10 +153,13 @@ public class FlightControls extends FragmentActivity{  //Activity principal
         else if (tvconexion != null) {
             tvconexion.setText(new ContextThemeWrapper().getResources().getString(R.string.EstadoConexion0));
             tvconexion.setTextColor(new ContextThemeWrapper().getResources().getColor(R.color.rojo));
-            if(btnPower != null)
-                btnPower.setVisibility(View.INVISIBLE);
-            if(btnActualizar != null)
-            btnActualizar.setVisibility(View.VISIBLE);
+
+            //COMENTADO PARA VERSION ESTABLE
+            //if(btnPower != null)
+            //    btnPower.setVisibility(View.INVISIBLE);
+            //if(btnActualizar != null)
+            //  btnActualizar.setVisibility(View.VISIBLE);
+
             Fragment2.avisoSensoresDesactualizados();
             sumarContadorErrorPruebaConxion();
         }
@@ -164,8 +170,10 @@ public class FlightControls extends FragmentActivity{  //Activity principal
      * @param v
      */
     public void clickAterrizaje(View v){
-        if (!banderaEstadoConexion)
-            return;
+
+        //COMENTADO PARA VERSION ESTABLE
+        //if (!banderaEstadoConexion)
+        //    return;
         vib.vibrate(200);
         Toast toast;
         if (aterrizaje) {
