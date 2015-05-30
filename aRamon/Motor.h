@@ -1,22 +1,21 @@
+#include "Arduino.h"
 #include "Servo.h"
 /**
  * Esta clase tiene como objetivo modelar y
  * controlar los motores
  * */
-class Motor{	
+class Motor : public Servo{	
 	private:
-		int pinMotor;	
-                Servo motor;
-                int voltaje;
-                int voltajeTR;
+          int pinMotor;	//Pin de arduino en el que esta conectado el motor
+          int voltaje;	//voltaje que se estara actualizando
+          int voltajeTR;	//voltaje en tiempo real
+          void sumVoltajeTR();
+          void resVoltajeTR();
 
 	public:
-		Motor(int,int);
-		void setVoltaje(int);
-                int getVoltaje();
-                void sumVoltajeTR();
-                void resVoltajeTR();
-                int getVoltajeTR();
-                void actulizaVoltaje();
-                void setVoltajes(int, int, int); // este metodo setea los valores para voltajeAlto,voltajeMedio, voltajeBajo
+  	  Motor(int, int);
+       	  void setVoltaje(int);
+          int getVoltaje();
+          int getVoltajeTR();
+          void actulizaVoltaje();
 };

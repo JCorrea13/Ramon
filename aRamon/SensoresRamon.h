@@ -1,3 +1,4 @@
+#include <SoftwareSerial.h>
 #include "TinyGPS.h"
 #include "Wire.h"
 
@@ -30,7 +31,10 @@ class SensoresRamon{
                         
       
 	public:
-                SensoresRamon();
+                static int PIN_ACELEROMETRO;
+                static int PIN_BUZZER;
+                SensoresRamon(const int, const int, const int, const int);
 		char * getCadenaSensores();
-	
+	        static void enciendeBuzzer();
+	        static void apagaBuzzer();
 };
