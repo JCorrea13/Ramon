@@ -185,7 +185,7 @@ public class Fragment1 extends Fragment {
         bIzquierda.setImageResource(R.drawable.flecha_izquierda);
         bArriba.setImageResource(R.drawable.flecha_arriba);
         bAbajo.setImageResource(R.drawable.flecha_abajo);
-        if(FlightControls.banderaEstadoConexion)
+        //if(FlightControls.banderaEstadoConexion)
             Torre.desplazar(Torre.MODO_ESTATICO);
     }
 

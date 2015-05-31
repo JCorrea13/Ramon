@@ -76,7 +76,6 @@ public class FlightControls extends FragmentActivity{  //Activity principal
             public void onClick(View v) {
                 vib.vibrate(200);
                 try {
-                    Thread.sleep(1000); //Dormimos el hilo un segundo para esperar los datos de Ramon
                     if (Torre.inicioConexion()) {
                         //if(hiloPruebaConexion.isInterrupted())
                         //hiloPruebaConexion.run();
