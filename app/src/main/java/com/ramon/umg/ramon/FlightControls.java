@@ -69,7 +69,6 @@ public class FlightControls extends FragmentActivity{  //Activity principal
         botonP1 = (Button)findViewById(R.id.bControles);
         botonP2 = (Button)findViewById(R.id.bSensores);
         botonP3 = (Button)findViewById(R.id.bMapa);
-        sombrearMenu(0);
 
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +128,7 @@ public class FlightControls extends FragmentActivity{  //Activity principal
     @Override
     protected void onDestroy(){
         Conexion.cerrarPuerto();
+
         super.onDestroy();
     }
 

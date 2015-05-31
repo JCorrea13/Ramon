@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+/**
+ * Autor: Luis Alfonso Ch.
+ **/
 public class Fragment2 extends Fragment {
     /**
      * tvSensoresDesactualizados: TextView predefinido, que se hace visible sí y solo sí se desconecta el drone.
@@ -49,15 +51,20 @@ public class Fragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment2, container, false);
-        tvSensoresDesactualizados = (TextView)view.findViewById(R.id.tvSensoresDesactualizados);
-        tvSensorGPS = (TextView)view.findViewById(R.id.tvGPS);
-        tvSensorGyro = (TextView)view.findViewById(R.id.tvGyro);
-        tvSensorTemp = (TextView)view.findViewById(R.id.tvTemp);
-        tvDatosGPS = (TextView)view.findViewById(R.id.tvInfoGPS);
-        tvDatosGyro = (TextView)view.findViewById(R.id.tvInfoGyro);
-        tvDatosTemp = (TextView)view.findViewById(R.id.tvInfoTemp);
-        //tvSensores.post(Conexion.hiloListernerSerial);
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        tvSensoresDesactualizados = (TextView)getActivity().findViewById(R.id.tvSensoresDesactualizados);
+        tvSensorGPS = (TextView)getActivity().findViewById(R.id.tvGPS);
+        tvSensorGyro = (TextView)getActivity().findViewById(R.id.tvGyro);
+        tvSensorTemp = (TextView)getActivity().findViewById(R.id.tvTemp);
+        tvDatosGPS = (TextView)getActivity().findViewById(R.id.tvInfoGPS);
+        tvDatosGyro = (TextView)getActivity().findViewById(R.id.tvInfoGyro);
+        tvDatosTemp = (TextView)getActivity().findViewById(R.id.tvInfoTemp);
+        //CUALQUIER COSA NECESARIA PONER AQUI Y NO EN ONCREATEVIEW
     }
 
     /**

@@ -5,28 +5,6 @@
     <!--Este diseño se muestra durante tdo el ciclo de la aplicacion, y utiliza un fragment (clase
     PagerAdapater) paral las 3 diferentes páginas: controles, sensores y mapeo.-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/EstadoConexion0"
-        android:textSize="30sp"
-        android:id="@+id/tvEstadoConexion"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/rojo"/>
-
-    <ImageButton
-        android:src="@drawable/reload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ibReload"
-        android:background="@color/blanco"
-        android:layout_gravity="end"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <android.support.v4.view.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -39,34 +17,22 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/Menu3Layout" />
 
-    <ImageButton
-        android:src="@drawable/power"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ibPower"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/blanco"
-        android:onClick="clickPower" />
-
     <LinearLayout
         android:id="@+id/Menu3Layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
-        android:layout_below="@+id/tvEstadoConexion"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/ConexionLayout">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_section1"
             android:textSize="15sp"
-            android:background="@color/blanco"
+            android:background="@color/grisMenu"
             android:id="@+id/bControles"
             android:layout_weight="1"
             android:onClick="botonControles" />
@@ -90,6 +56,66 @@
             android:id="@+id/bMapa"
             android:layout_weight="1"
             android:onClick="botonMapeo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LineaLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/grisMenu"
+        android:layout_below="@+id/ConexionLayout"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ConexionLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="7">
+
+        <ImageButton
+            android:src="@drawable/power"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibPower"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/blanco"
+            android:onClick="clickPower"
+            android:layout_weight="1"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/EstadoConexion0"
+            android:textSize="30sp"
+            android:id="@+id/tvEstadoConexion"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/rojo"
+            android:layout_weight="5"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textIsSelectable="false"
+            android:gravity="center" />
+
+        <ImageButton
+            android:src="@drawable/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibReload"
+            android:background="@color/blanco"
+            android:layout_gravity="center|end"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 /**
+ * Luis Alfonso Ch.
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link Fragment3.OnFragmentInteractionListener} interface
@@ -31,27 +33,56 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Fragment3 extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap.OnMyLocationChangeListener LocationCListener;
-    private Marker marker;
+    private Marker marcadorAereo;
     private LatLng latylon;
+    private Button bEnfocarBA;
+    private Button bEnfocarBT;
+    private GoogleMap map;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        FragmentoMapa mapFragment = new FragmentoMapa();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.add(R.id.map, mapFragment).commit();
+        mapFragment.getMapAsync(this);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment3, container, false);
-        FragmentoMapa mapFragment = new FragmentoMapa();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.map, mapFragment).commit();
-        mapFragment.getMapAsync(this);
         return view;
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        bEnfocarBA = (Button)getActivity().findViewById(R.id.bEnfocarBAerea);
+        bEnfocarBT = (Button)getActivity().findViewById(R.id.bEnfocarBTerrena);
+
+        bEnfocarBA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enfocarBaseAerea();
+            }
+        });
+
+        bEnfocarBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enfocarBaseTerrena();
+            }
+        });
+    }
+
+    @Override
     public void onMapReady(GoogleMap map) {
+        this.map = map;
         final GoogleMap map2 = map;
         latylon = new LatLng(Fragment2.latitud, Fragment2.longitud);
         map2.setMyLocationEnabled(true);
-
-        marker = map.addMarker(new MarkerOptions()
+        marcadorAereo = map.addMarker(new MarkerOptions()
                 .position(latylon));
 
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -64,7 +95,6 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
             double longitude = location.getLongitude();
             loc = new LatLng(latitude, longitude);
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
         }
 
         LocationCListener = new GoogleMap.OnMyLocationChangeListener() {
@@ -74,10 +104,21 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
                 if(map2 != null){
                     map2.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
                     map2.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
-                    marker = map2.addMarker(new MarkerOptions()
+                    marcadorAereo = map2.addMarker(new MarkerOptions()
                             .position(latylon));
                 }
             }
         };
+    }
+
+    private void enfocarBaseAerea(){
+        LatLng loc = marcadorAereo.getPosition();
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+    }
+
+    private void enfocarBaseTerrena(){
+        Location location = map.getMyLocation();
+        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
     }
 }
