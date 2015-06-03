@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 /**
+ * Autor: Luis Alfonso Ch.
  * Fragment1: Clase que hereda de fragment, mostrará controles de vuelo y botón para despleguar o guardar el patín de aterrizaje.
  */
 public class Fragment1 extends Fragment {
@@ -42,14 +43,18 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment1, container, false);
+        return view;
+    }
 
-        bAdelante = (ImageButton)view.findViewById(R.id.ibAdelante);
-        bAtras = (ImageButton)view.findViewById(R.id.ibAtras);
-        bDerecha = (ImageButton)view.findViewById(R.id.ibDerecha);
-        bIzquierda = (ImageButton)view.findViewById(R.id.ibIzquierda);
-        bArriba = (ImageButton)view.findViewById(R.id.ibArriba);
-        bAbajo = (ImageButton)view.findViewById(R.id.ibAbajo);
-
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        bAdelante = (ImageButton)getActivity().findViewById(R.id.ibAdelante);
+        bAtras = (ImageButton)getActivity().findViewById(R.id.ibAtras);
+        bDerecha = (ImageButton)getActivity().findViewById(R.id.ibDerecha);
+        bIzquierda = (ImageButton)getActivity().findViewById(R.id.ibIzquierda);
+        bArriba = (ImageButton)getActivity().findViewById(R.id.ibArriba);
+        bAbajo = (ImageButton)getActivity().findViewById(R.id.ibAbajo);
         //AÑADIR EN CADA EVENTO EL DATO QUE SE LE ENVIARÁ AL ARDUINO PARA QUE ESTE SE ENCARGUE DEL MOVIENTO
         bAdelante.setOnTouchListener(new View.OnTouchListener() {
 
@@ -159,8 +164,6 @@ public class Fragment1 extends Fragment {
                 return true;
             }
         });
-
-        return view;
     }
 
     /**

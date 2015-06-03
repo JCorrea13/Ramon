@@ -11,43 +11,89 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/ivBaseTerrena" />
+        android:layout_above="@+id/linearLayout2" />
 
-    <ImageView
-        android:src="@drawable/posicion_terrena"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ivBaseTerrena"
-        android:layout_above="@+id/tvBaseAerea"
+        android:layout_above="@+id/linearLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2"
+        android:gravity="center_vertical"
+        android:weightSum="7">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/BTerrena"
-        android:id="@+id/tvBaseTerrena"
-        android:layout_above="@+id/tvBaseAerea"
-        android:layout_toRightOf="@+id/ivBaseTerrena"
-        android:layout_toEndOf="@+id/ivBaseTerrena" />
+        <ImageView
+            android:src="@drawable/posicion_terrena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivBaseTerrena"
+            android:layout_weight="2" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivBaseAerea"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/BTerrena"
+            android:id="@+id/tvBaseTerrena"
+            android:layout_weight="3" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bEnfocar"
+                android:id="@+id/bEnfocarBTerrena"
+                android:background="@color/grisMenu"
+                android:layout_gravity="right" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/BAerea"
-        android:id="@+id/tvBaseAerea"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/ivBaseAerea"
-        android:layout_toEndOf="@+id/ivBaseAerea" />
+        android:id="@+id/linearLayout"
+        android:gravity="center_vertical"
+        android:weightSum="7">
+
+        <ImageView
+            android:src="@drawable/posicion_aerea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivBaseAerea"
+            android:layout_weight="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/BAerea"
+            android:id="@+id/tvBaseAerea"
+            android:layout_weight="3" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bEnfocar"
+                android:id="@+id/bEnfocarBAerea"
+                android:background="@color/grisMenu"
+                android:layout_gravity="right" />
+        </FrameLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

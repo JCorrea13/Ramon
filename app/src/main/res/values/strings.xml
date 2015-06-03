@@ -18,4 +18,5 @@
     <string name="sensorGPS">GPS: </string>
     <string name="sensorGyro">Giroscopio: </string>
     <string name="sensorTemp">Temperatura: </string>
+    <string name="bEnfocar">Enfocar</string>
 </resources>
