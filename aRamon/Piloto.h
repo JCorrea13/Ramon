@@ -26,17 +26,17 @@
 class Piloto{	
 	private:
 
-		Servo *tren_Aterrizaje;	
+		Servo tren_Aterrizaje;	
                 boolean estado_trenAterrizaje;	
 		int voltajeMotor1;
 		int voltajeMotor2;
 		int voltajeMotor3;
 		int voltajeMotor4;
                 		
-		Servo *motor1;
-		Servo *motor2;
-		Servo *motor3;
-		Servo *motor4;
+		Motor motor1;
+		Motor motor2;
+		Motor motor3;
+		Motor motor4;
 
 
                 int voltajeAlto;
@@ -62,7 +62,7 @@ class Piloto{
 		void outputPines();
                 void confirmaConexion();
 	public:
-		Piloto(const int,const int,const int,const int,const int);
+		Piloto(Motor ,Motor ,Motor ,Motor ,Servo);
 		void desplazar(char);
                 void setVoltajes(int, int, int, int); // este metodo setea los valores para voltajeAlto,voltajeMedio, voltajeBajo, voltajeApagado
 };

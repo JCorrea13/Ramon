@@ -13,7 +13,8 @@ class Motor : public Servo{
           void resVoltajeTR();
 
 	public:
-  	  Motor(int, int);
+          Motor();
+  	  //Motor(int);
        	  void setVoltaje(int);
           int getVoltaje();
           int getVoltajeTR();

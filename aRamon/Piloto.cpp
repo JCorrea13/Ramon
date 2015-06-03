@@ -2,53 +2,48 @@
 #include "Piloto.h"
 #include "SensoresRamon.h"
 
-Piloto :: Piloto(const int PIN_MOTOR1,const int PIN_MOTOR2,const int PIN_MOTOR3,const int PIN_MOTOR4,const int PIN_TRENATERRIZAJE){
+Piloto :: Piloto(Motor motor1, Motor motor2, Motor motor3, Motor motor4, Servo aterrizaje){//const int PIN_TRENATERRIZAJE){
 
-	this->tren_Aterrizaje = new Servo();
-        this->tren_Aterrizaje->attach(PIN_TRENATERRIZAJE);	
-	//Inicializamos los pines de los motores como pines de salida
-	pinMode(PIN_MOTOR1 , OUTPUT);
-	pinMode(PIN_MOTOR2 , OUTPUT);
-	pinMode(PIN_MOTOR3 , OUTPUT);
-	pinMode(PIN_MOTOR4 , OUTPUT);
-	pinMode(PIN_TRENATERRIZAJE , OUTPUT);
-
-        //Inicializamos motores
-        this->motor1 = new Motor(PIN_MOTOR1, 22);
-        this->motor2 = new Motor(PIN_MOTOR2, 22);
-        this->motor3 = new Motor(PIN_MOTOR3, 22);
-        this->motor4 = new Motor(PIN_MOTOR4, 22);
-    	
+	this->tren_Aterrizaje = aterrizaje;
+        this->estado_trenAterrizaje = true;
+        
         //dejamos los voltajes en cero para obligar a cambiarlos
         setVoltajes(0,0,0,0);
+        
+        //Inicializamos motores
+        this->motor1 = motor1;
+        this->motor2 = motor2;
+        this->motor3 = motor3;
+        this->motor4 = motor4;
+        this->desplazar(MODO_ESTATICO);
 }
 
 void Piloto :: setVoltajes(int voltajeAlto, int voltajeMedio, int voltajeBajo, int voltajeApagado){
         this->voltajeAlto = voltajeAlto;
-        this->voltajeMedio = voltajeMedio;
+        this->voltajeMedio = voltajeMedio;  
         this->voltajeBajo = voltajeBajo;	
         this->voltajeApagado = voltajeApagado;
 }
 
 void Piloto :: setVoltajeMotor1(int voltaje){
-	((Motor*)this->motor1)->setVoltaje(voltaje);
+	this->motor1.setVoltaje(voltaje);
 }
 void Piloto :: setVoltajeMotor2(int voltaje){
-	((Motor*)this->motor2)->setVoltaje(voltaje);
+	this->motor2.setVoltaje(voltaje);
 }
 void Piloto :: setVoltajeMotor3(int voltaje){
-	((Motor*)this->motor3)->setVoltaje(voltaje);
+	this->motor3.setVoltaje(voltaje);
 }
 void Piloto :: setVoltajeMotor4(int voltaje){
-	((Motor*)this->motor4)->setVoltaje(voltaje);
+	this->motor4.setVoltaje(voltaje);
 }
 
 //El valor que se puede escribir en los pines digitamles va desde 0 hasta 1023
 void Piloto :: outputPines(){
-	((Motor*)this->motor1)->actulizaVoltaje();
-	((Motor*)this->motor2)->actulizaVoltaje();
-	((Motor*)this->motor3)->actulizaVoltaje();
-	((Motor*)this->motor4)->actulizaVoltaje();
+	this->motor1.actulizaVoltaje();
+	this->motor2.actulizaVoltaje();
+	this->motor3.actulizaVoltaje();
+	this->motor4.actulizaVoltaje();
 }
 
 void Piloto :: setConfi_DirIzquierda(){
@@ -98,28 +93,31 @@ void Piloto :: setConfi_DirAterrizar(){
 }
 
 void Piloto :: cambioEstado_trenAterrizaje(){
+        Serial.print("Cambio tren Aterrizaje: ");
         if(this->estado_trenAterrizaje){
-            this->tren_Aterrizaje->write(0);            
+            Serial.println("True");
+            this->tren_Aterrizaje.write(0);            
             this->estado_trenAterrizaje = false;
         }else{
-            this->tren_Aterrizaje->write(100);          
+            Serial.println("False");          
+            this->tren_Aterrizaje.write(150);          
             this->estado_trenAterrizaje = true;
         }
 }
 
 void Piloto :: on_off_Motores(){
 	
-	if(((Motor*)this->motor1)->getVoltaje() > this->voltajeApagado)
-		((Motor*)this->motor1)->setVoltaje(this->voltajeApagado);
-		((Motor*)this->motor2)->setVoltaje(this->voltajeApagado);
-		((Motor*)this->motor3)->setVoltaje(this->voltajeApagado);
-		((Motor*)this->motor4)->setVoltaje(this->voltajeApagado);
+	if(this->motor1.getVoltaje() > this->voltajeApagado)
+		this->motor1.setVoltaje(this->voltajeApagado);
+		this->motor2.setVoltaje(this->voltajeApagado);
+		this->motor3.setVoltaje(this->voltajeApagado);
+		this->motor4.setVoltaje(this->voltajeApagado);
 		
-	if(((Motor*)this->motor1)->getVoltaje() <= this->voltajeApagado)
-		((Motor*)this->motor1)->setVoltaje(this->voltajeMedio);
-		((Motor*)this->motor2)->setVoltaje(this->voltajeMedio);
-		((Motor*)this->motor3)->setVoltaje(this->voltajeMedio);
-		((Motor*)this->motor4)->setVoltaje(this->voltajeMedio);
+	if(this->motor1.getVoltaje() <= this->voltajeApagado)
+		this->motor1.setVoltaje(this->voltajeMedio);
+		this->motor2.setVoltaje(this->voltajeMedio);
+		this->motor3.setVoltaje(this->voltajeMedio);
+		this->motor4.setVoltaje(this->voltajeMedio);
 		
 }
 

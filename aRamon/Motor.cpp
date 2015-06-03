@@ -2,9 +2,7 @@
 #include "Servo.h"
 #include "Motor.h"
 
-Motor :: Motor(int pin, int vinicial){
-	this->attach(pin);
-	setVoltaje(vinicial);
+Motor :: Motor(){
 }
 
 void Motor :: setVoltaje(int voltaje){

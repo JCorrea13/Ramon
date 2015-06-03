@@ -20,15 +20,14 @@ SensoresRamon :: SensoresRamon(const int PIN_AC,const int PIN_B, const int PIN_G
 
         //ACELEROMETRO Y GIROSCOPIO
         SensoresRamon::PIN_ACELEROMETRO = PIN_AC;
-        Wire.begin();
-        Wire.beginTransmission(SensoresRamon::PIN_ACELEROMETRO);
+        //Wire.begin();
+        /*Wire.beginTransmission(SensoresRamon::PIN_ACELEROMETRO);
         Wire.write(0x6B);  // PWR_MGMT_1 register
         Wire.write(0);     // set to zero (wakes up the pinAcelerometro-6050)
-        Wire.endTransmission(true);
+        Wire.endTransmission(true);*/
         
         //buzzer
         SensoresRamon::PIN_BUZZER = PIN_B;
-        pinMode(SensoresRamon::PIN_BUZZER , OUTPUT);
 }
 
 void SensoresRamon :: actualizaGPS(){
@@ -108,10 +107,10 @@ char * SensoresRamon :: getCadenaSensores(){
 }
 
 void SensoresRamon :: enciendeBuzzer(){
-     digitalWrite(SensoresRamon::PIN_BUZZER, HIGH);
+     analogWrite(SensoresRamon::PIN_BUZZER, HIGH);
 }
 
 void SensoresRamon :: apagaBuzzer(){
-     digitalWrite(SensoresRamon::PIN_BUZZER, LOW);
+     analogWrite(SensoresRamon::PIN_BUZZER, LOW);
 }
 
