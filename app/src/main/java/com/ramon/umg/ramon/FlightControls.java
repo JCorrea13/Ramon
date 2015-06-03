@@ -75,7 +75,6 @@ public class FlightControls extends FragmentActivity{  //Activity principal
             public void onClick(View v) {
                 vib.vibrate(200);
                 try {
-                    Thread.sleep(1000); //Dormimos el hilo un segundo para esperar los datos de Ramon
                     if (Torre.inicioConexion()) {
                         //if(hiloPruebaConexion.isInterrupted())
                         //hiloPruebaConexion.run();
@@ -100,9 +99,9 @@ public class FlightControls extends FragmentActivity{  //Activity principal
             Conexion.setConexion(this, 57600);
             Conexion.setTiempoCompruebaConexion(2000);
             Conexion.setLimiteReconexionAutomatica(3);
-            Util.makeToast("Inicio");
         }catch (IOException e) {
             e.printStackTrace();
+            Util.makeToast("Error iniciando conexión");
         }
         //Cuando un boton es presionado, y se arrastra hacia la siguiente pagina (se cambia de fragmen el viewpager)
         //los botones deben reiniciarse (volver a su imagen original) y enviar el codigo al arduino de que ya no se
