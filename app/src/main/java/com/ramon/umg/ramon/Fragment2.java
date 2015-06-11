@@ -85,7 +85,7 @@ public class Fragment2 extends Fragment {
             tvSensoresDesactualizados.setVisibility(View.INVISIBLE);
         if (!text.isEmpty()) {
             //AQUI HAY QUE EXTRAER LOS DATOS DE LOS SENSORES Y ACOMODARLOS EN SUS VARIABLES:
-            String GPS = "";
+            String GPS = text;
             latitud = 20.637234;    //PONER VERDADERA LAT Y LONG DE RAMON
             longitud = -103.406499;
             String Gyro = "";

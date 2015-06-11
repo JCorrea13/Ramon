@@ -28,6 +28,7 @@ class Piloto{
 
 		Servo tren_Aterrizaje;	
                 boolean estado_trenAterrizaje;	
+                boolean estado_motores;
 		int voltajeMotor1;
 		int voltajeMotor2;
 		int voltajeMotor3;
@@ -39,10 +40,10 @@ class Piloto{
 		Motor motor4;
 
 
-                int voltajeAlto;
-                int voltajeMedio;
-                int voltajeBajo;
-                int voltajeApagado;
+                int voltajeAlto = 0;
+                int voltajeMedio = 0;
+                int voltajeBajo = 0;
+                int voltajeApagado = 0;
 
 		void setVoltajeMotor1(int);
 		void setVoltajeMotor2(int);
@@ -58,11 +59,12 @@ class Piloto{
 		void setConfi_DirModoEstatico();
 		void setConfi_DirAterrizar();
 		void cambioEstado_trenAterrizaje();
-		void on_off_Motores();
-		void outputPines();
+      		void on_off_Motores();
+                void outputPines();
                 void confirmaConexion();
 	public:
 		Piloto(Motor ,Motor ,Motor ,Motor ,Servo);
 		void desplazar(char);
                 void setVoltajes(int, int, int, int); // este metodo setea los valores para voltajeAlto,voltajeMedio, voltajeBajo, voltajeApagado
+                void inicializaMotores();
 };

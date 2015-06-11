@@ -1,8 +1,8 @@
 package com.ramon.umg.ramon;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
@@ -54,6 +54,8 @@ public class FlightControls extends FragmentActivity{  //Activity principal
     private Button botonP2;
     private Button botonP3;
 
+    private Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,7 @@ public class FlightControls extends FragmentActivity{  //Activity principal
         botonP1 = (Button)findViewById(R.id.bControles);
         botonP2 = (Button)findViewById(R.id.bSensores);
         botonP3 = (Button)findViewById(R.id.bMapa);
+        activity = this;
 
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,17 +79,14 @@ public class FlightControls extends FragmentActivity{  //Activity principal
                 vib.vibrate(200);
                 try {
                     if (Torre.inicioConexion()) {
-                        //if(hiloPruebaConexion.isInterrupted())
-                        //hiloPruebaConexion.run();
+                        Conexion.iniciarHiloPruebaConexion(activity);
                         Util.makeToast("Conexion establecida");
                     } else {
-                        //if(!hiloPruebaConexion.isInterrupted())
-                        //hiloPruebaConexion.resume();
+                        Conexion.terminarHiloPruebaConexion();
                         Util.makeToast("No se pudo conectar con Ramon");
                     }
                 } catch (Exception e) {
-                    //if(!hiloPruebaConexion.isInterrupted())
-                    //hiloPruebaConexion.resume();
+                    Conexion.terminarHiloPruebaConexion();
                     Util.makeToast("Error al tratar de establecer la comunicacion");
                     e.printStackTrace();
                 }
@@ -142,12 +142,12 @@ public class FlightControls extends FragmentActivity{  //Activity principal
             tvconexion.setTextColor(new ContextThemeWrapper().getResources().getColor(R.color.verde));
             btnPower.setVisibility(View.VISIBLE);
             btnActualizar.setVisibility(View.INVISIBLE);
-            Fragment2.actualizarSensores("PONER AQUI DATOS DE LOS SENSORES SIN EXTRAER");
             contadorErrorPruebaConxion = 0;
         }
         //La bandera es cero y si no es nulo el textview
         else if (tvconexion != null) {
             tvconexion.setText(new ContextThemeWrapper().getResources().getString(R.string.EstadoConexion0));
+            tvconexion.setText(R.string.EstadoConexion0);
             tvconexion.setTextColor(new ContextThemeWrapper().getResources().getColor(R.color.rojo));
             if(btnPower != null)
                 btnPower.setVisibility(View.INVISIBLE);

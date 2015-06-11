@@ -5,24 +5,24 @@
 Motor :: Motor(){
 }
 
-void Motor :: setVoltaje(int voltaje){
-	this->voltaje = voltaje;
+void Motor :: setVoltaje(int v){
+	voltaje = v;
 }
 
 int Motor :: getVoltaje(){
-	return this-> voltaje;
+	return voltaje;
 }
 
 void Motor :: sumVoltajeTR(){
-	this->voltajeTR ++;
+	voltajeTR ++;
 }
 
 void Motor :: resVoltajeTR(){
-	this->voltajeTR --;	
+	voltajeTR --;	
 }
 
 int Motor :: getVoltajeTR(){
-	return this->voltajeTR;
+	return voltajeTR;
 }
 
 /**
@@ -33,11 +33,11 @@ int Motor :: getVoltajeTR(){
  * 
  */
 void Motor :: actulizaVoltaje(){
-	if(this->voltajeTR < this->voltaje)
-		sumVoltajeTR();
+	if(voltajeTR < voltaje)
+	  sumVoltajeTR();
 	
-	if(this->voltajeTR > this->voltaje)
-		resVoltajeTR();
+	if(voltajeTR > voltaje)
+          resVoltajeTR();
 		
-	this->write(this->voltajeTR);
+	write(voltajeTR);
 }

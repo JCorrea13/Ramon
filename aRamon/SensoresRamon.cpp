@@ -107,10 +107,10 @@ char * SensoresRamon :: getCadenaSensores(){
 }
 
 void SensoresRamon :: enciendeBuzzer(){
-     analogWrite(SensoresRamon::PIN_BUZZER, HIGH);
+     analogWrite(SensoresRamon::PIN_BUZZER, 1000);
 }
 
 void SensoresRamon :: apagaBuzzer(){
-     analogWrite(SensoresRamon::PIN_BUZZER, LOW);
+     analogWrite(SensoresRamon::PIN_BUZZER, 0);
 }
 

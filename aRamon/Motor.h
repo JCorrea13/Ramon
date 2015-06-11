@@ -15,8 +15,8 @@ class Motor : public Servo{
 	public:
           Motor();
   	  //Motor(int);
-       	  void setVoltaje(int);
           int getVoltaje();
+       	  void setVoltaje(int);
           int getVoltajeTR();
           void actulizaVoltaje();
 };

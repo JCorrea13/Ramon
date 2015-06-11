@@ -1,14 +1,18 @@
 package com.ramon.umg.ramon;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
+import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
 import java.util.Timer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by JCORREA on 30/03/2015.
@@ -26,6 +30,9 @@ public class Conexion{
     private static String datos = null;
     public static Timer tListenerSerial = null;
     public static Timer tPruebaConexion = null;
+    public static FlightControls act;
+    private static final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
+    private static SerialInputOutputManager mSerialIoManager;
 
     /**
      * Este metodo configura y crea la conexion con
@@ -44,9 +51,13 @@ public class Conexion{
             Util.makeToast("No se reconocio ningun dispositivo conectado");
         }
 
-        //iniciarHiloListenerSerial();
-        //iniciarHiloPruebaConexion();
+        //iniciarHiloPruebaConexion(activity);
+        act  = activity;
 
+            if (driver != null) {
+                mSerialIoManager = new SerialInputOutputManager(driver, mListener);
+                mExecutor.submit(mSerialIoManager);
+            }
     }
 
     /**
@@ -54,9 +65,10 @@ public class Conexion{
      * @return True si existe la conexion, False si no existe
      */
     public static synchronized Boolean pruebaConexion() throws IOException {
-        String datos = lee();
+        //String datos = lee();
         if(datos != null && datos.length() > 0) {
-            System.out.println("prueba conexion: " + datos);
+            //System.out.println("prueba conexion: " + datos);
+            Util.makeToast("prueba conexion: " + datos);
             return true;
         }
         return false;
@@ -67,21 +79,37 @@ public class Conexion{
      * toma lo que hay en este
      * @return String con datos leidos
      */
-    public static synchronized String lee() throws IOException{
-        if (driver != null) try {
+    private static final SerialInputOutputManager.Listener mListener =
+            new SerialInputOutputManager.Listener() {
 
-            byte buffer[] = new byte[8];
-            int numBytesRead = driver.read(buffer, 8);
-            if(numBytesRead > 0) {
-                FlightControls.banderaEstadoConexion = true;
-                FlightControls.actualizaEstadoConexion();
-            }
-            datos = buffer.toString();
-        }catch (IOException e) {
-            System.out.println("Error en la lectura de datos");
-            driver.close();
+                @Override
+                public void onRunError(Exception e) {
+
+                }
+
+                @Override
+                public void onNewData(final byte[] data) {
+                    act.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Conexion.updateReceivedData(data);
+                        }
+                    });
+                }
+            };
+
+    private static void updateReceivedData(byte[] data) {
+        FlightControls.banderaEstadoConexion = true;
+        final String str = convierteDataToString(data);
+        Fragment2.actualizarSensores(str);
+    }
+
+    private static String convierteDataToString(byte[] data){
+        String str = "";
+        for(byte i : data){
+            str += (char)i;
         }
-        return datos;
+        return str;
     }
 
     /**
@@ -144,24 +172,10 @@ public class Conexion{
         }
     }
 
-    public static void iniciarHiloListenerSerial(){
-        if(tListenerSerial == null) {
-            tListenerSerial = new Timer("ListenerSerial", true);
-            tListenerSerial.scheduleAtFixedRate(new SubProcesos.ListenerSerial(), 1000, 0);
-        }
-    }
-
-    public static void terminarHiloListenerSerial(){
-        if(tListenerSerial != null){
-            tListenerSerial.cancel();
-            tListenerSerial = null;
-        }
-    }
-
-    public static void iniciarHiloPruebaConexion(){
+    public static void iniciarHiloPruebaConexion(Activity act){
         if(tPruebaConexion == null) {
             tPruebaConexion = new Timer("PruebaConexion",true);
-            tPruebaConexion.scheduleAtFixedRate(new SubProcesos.PruebaConexion(), 1000, 0);
+            tPruebaConexion.scheduleAtFixedRate(new SubProcesos.PruebaConexion(act), 1000, 1000);
         }
     }
 

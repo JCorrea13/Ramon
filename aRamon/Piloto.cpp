@@ -4,9 +4,10 @@
 
 Piloto :: Piloto(Motor motor1, Motor motor2, Motor motor3, Motor motor4, Servo aterrizaje){//const int PIN_TRENATERRIZAJE){
 
-	this->tren_Aterrizaje = aterrizaje;
-        this->estado_trenAterrizaje = true;
+	tren_Aterrizaje = aterrizaje;
+        estado_trenAterrizaje = true;        
         
+        this->estado_motores = false;
         //dejamos los voltajes en cero para obligar a cambiarlos
         setVoltajes(0,0,0,0);
         
@@ -15,7 +16,30 @@ Piloto :: Piloto(Motor motor1, Motor motor2, Motor motor3, Motor motor4, Servo a
         this->motor2 = motor2;
         this->motor3 = motor3;
         this->motor4 = motor4;
-        this->desplazar(MODO_ESTATICO);
+}
+
+void Piloto :: inicializaMotores(){
+    motor1.write(22);
+    motor2.write(22);
+    motor3.write(22);
+    motor4.write(22);   
+    delay(7000);
+    
+    motor1.write(35);
+    motor2.write(35);
+    motor3.write(35);
+    motor4.write(35);
+    delay(1000);
+    
+    motor1.write(22);
+    motor2.write(22);
+    motor3.write(22);
+    motor4.write(22);   
+    
+    setVoltajeMotor1(voltajeApagado);
+    setVoltajeMotor2(voltajeApagado);
+    setVoltajeMotor3(voltajeApagado);
+    setVoltajeMotor4(voltajeApagado);
 }
 
 void Piloto :: setVoltajes(int voltajeAlto, int voltajeMedio, int voltajeBajo, int voltajeApagado){
@@ -26,24 +50,29 @@ void Piloto :: setVoltajes(int voltajeAlto, int voltajeMedio, int voltajeBajo, i
 }
 
 void Piloto :: setVoltajeMotor1(int voltaje){
-	this->motor1.setVoltaje(voltaje);
+	motor1.setVoltaje(voltaje);
 }
 void Piloto :: setVoltajeMotor2(int voltaje){
-	this->motor2.setVoltaje(voltaje);
+	motor2.setVoltaje(voltaje);
 }
 void Piloto :: setVoltajeMotor3(int voltaje){
-	this->motor3.setVoltaje(voltaje);
+	motor3.setVoltaje(voltaje);
 }
 void Piloto :: setVoltajeMotor4(int voltaje){
-	this->motor4.setVoltaje(voltaje);
+	motor4.setVoltaje(voltaje);
 }
 
 //El valor que se puede escribir en los pines digitamles va desde 0 hasta 1023
 void Piloto :: outputPines(){
-	this->motor1.actulizaVoltaje();
-	this->motor2.actulizaVoltaje();
-	this->motor3.actulizaVoltaje();
-	this->motor4.actulizaVoltaje();
+	/*motor1.actulizaVoltaje();
+	motor2.actulizaVoltaje();
+	motor3.actulizaVoltaje();
+	motor4.actulizaVoltaje();*/
+        
+        motor1.write(motor1.getVoltaje());
+        motor2.write(motor2.getVoltaje());
+        motor3.write(motor3.getVoltaje());
+        motor4.write(motor4.getVoltaje());
 }
 
 void Piloto :: setConfi_DirIzquierda(){
@@ -94,31 +123,24 @@ void Piloto :: setConfi_DirAterrizar(){
 
 void Piloto :: cambioEstado_trenAterrizaje(){
         Serial.print("Cambio tren Aterrizaje: ");
-        if(this->estado_trenAterrizaje){
+        if(estado_trenAterrizaje){
             Serial.println("True");
-            this->tren_Aterrizaje.write(0);            
-            this->estado_trenAterrizaje = false;
+            tren_Aterrizaje.write(17);            
         }else{
             Serial.println("False");          
-            this->tren_Aterrizaje.write(150);          
-            this->estado_trenAterrizaje = true;
+            tren_Aterrizaje.write(180);          
         }
+        estado_trenAterrizaje = (!estado_trenAterrizaje);
 }
 
 void Piloto :: on_off_Motores(){
-	
-	if(this->motor1.getVoltaje() > this->voltajeApagado)
-		this->motor1.setVoltaje(this->voltajeApagado);
-		this->motor2.setVoltaje(this->voltajeApagado);
-		this->motor3.setVoltaje(this->voltajeApagado);
-		this->motor4.setVoltaje(this->voltajeApagado);
-		
-	if(this->motor1.getVoltaje() <= this->voltajeApagado)
-		this->motor1.setVoltaje(this->voltajeMedio);
-		this->motor2.setVoltaje(this->voltajeMedio);
-		this->motor3.setVoltaje(this->voltajeMedio);
-		this->motor4.setVoltaje(this->voltajeMedio);
-		
+  //if(estado_motores){
+    motor1.setVoltaje(voltajeApagado);
+    motor2.setVoltaje(voltajeApagado);
+    motor3.setVoltaje(voltajeApagado);
+    motor4.setVoltaje(voltajeApagado);
+  //estado_motores = (!estado_motores);
+  outputPines();
 }
 
 void Piloto :: confirmaConexion(){
@@ -132,36 +154,47 @@ void Piloto :: desplazar(char direccion){
 	switch(direccion){
 		case MODO_ESTATICO:
 				setConfi_DirModoEstatico();
+                                Serial.println("Modo estatico");
 				break;
 		case DIR_IZQUIERDA:
 				setConfi_DirIzquierda();
+                                Serial.println("Izquierda");
 				break;
 		case DIR_DERECHA:
 				setConfi_DirDerecha();
+                                Serial.println("Derecha");
 				break;
 		case DIR_ADELANTE:
 				setConfi_DirAdelante();
+                                Serial.println("Adelante");
 				break;
 		case DIR_ATRAS:
 				setConfi_DirAtras();
+                                Serial.println("Atras");
 				break;
 		case DIR_BAJAR:
 				setConfi_DirBajar();
+                                Serial.println("Bajar");
 				break;
 		case DIR_SUBIR:
 				setConfi_DirSubir();
+                                Serial.println("Subir");
 				break;
 		case ATERRIZA:
 				setConfi_DirAterrizar();
+                                Serial.println("Aterrizar");
 				break;
 		case TREN_ATERRIZAJE_CAMBIOESTADO:
 				cambioEstado_trenAterrizaje();
+                                Serial.println("Tren Aterrizaje");
 				break;
 		case ON_OFF_MOTORES:
 				on_off_Motores();
+                                Serial.println("On off motores");
 				break;
 		case CONFIMACION_CONEXION:
 				confirmaConexion();
+                                Serial.println("Confima coneixon");  
 				break;
 	}
 	outputPines();

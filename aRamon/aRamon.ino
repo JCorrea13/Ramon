@@ -6,11 +6,11 @@
 
 //Salida a motores
 const int NULLL = 'X';
-const int PIN_MOTOR1 = 6;
-const int PIN_MOTOR2 = 13;
-const int PIN_MOTOR3 = 10;
-const int PIN_MOTOR4 = 11;
-const int PIN_ATERRIZAJE = 9;
+const int PIN_MOTOR1 = 6; //adelante izquierda
+const int PIN_MOTOR2 = 10; //adelante derecha
+const int PIN_MOTOR3 = 11; //atras izquierda
+const int PIN_MOTOR4 = 9;// atras derecha
+const int PIN_ATERRIZAJE = 3;
 const int PIN_BUZZER = A2;
 const int PIN_GPSRX = -2;
 const int PIN_GPSTX = 5;
@@ -24,8 +24,9 @@ Motor motor2;
 Motor motor3;
 Motor motor4;
 
-Piloto *piloto = new Piloto(motor1,motor2,motor3,motor4,trenAterrizaje);
-SensoresRamon *sensores = new SensoresRamon(PIN_ACELEROMETRO,PIN_BUZZER,PIN_GPSRX, PIN_GPSTX); 
+Piloto piloto = Piloto(motor1,motor2,motor3,motor4,trenAterrizaje);
+SensoresRamon sensores = SensoresRamon(PIN_ACELEROMETRO,PIN_BUZZER,PIN_GPSRX, PIN_GPSTX); 
+
 void setup() {
   //Inicializamos el serial
   Serial.begin(57600);
@@ -39,20 +40,21 @@ void setup() {
   motor2.attach(PIN_MOTOR2);
   motor3.attach(PIN_MOTOR3);
   motor4.attach(PIN_MOTOR4);
+  piloto.inicializaMotores();
   
   pinMode(PIN_BUZZER, OUTPUT);
   //Establecemos los vaoltajes que manejaran los motores
-  piloto->setVoltajes(80,60,22,22); 
+  piloto.setVoltajes(50,38,30,22); 
   Serial.println("Inicio");
 }
 
 char dato;
 void loop() {
-  if(Serial.available()){
+   if(Serial.available()){
      dato = Serial.read();
-     Serial.print(dato);
-     piloto->desplazar(dato);
+     piloto.desplazar(dato);
    }else{
-     piloto->desplazar(NULLL);
-   }     
+     //piloto.desplazar(NULLL);
+   }
 }
+

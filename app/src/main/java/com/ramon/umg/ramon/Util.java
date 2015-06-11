@@ -15,4 +15,9 @@ public class Util {
         Toast toast = Toast.makeText(FlightControls.fly.getApplicationContext(), texto, Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    public static synchronized void makeToast(String texto, int duration){
+        Toast toast = Toast.makeText(FlightControls.fly.getApplicationContext(), texto, duration);
+        toast.show();
+    }
 }
