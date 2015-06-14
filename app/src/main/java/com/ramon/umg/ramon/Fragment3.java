@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,23 +21,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
 /**
- * Luis Alfonso Ch.
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Fragment3.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Fragment3#newInstance} factory method to
- * create an instance of this fragment.
+ * Autor: Luis Alfonso Ch.
  */
 public class Fragment3 extends Fragment implements OnMapReadyCallback {
 
-    private GoogleMap.OnMyLocationChangeListener LocationCListener;
-    private Marker marcadorAereo;
-    private LatLng latylon;
     private Button bEnfocarBA;
     private Button bEnfocarBT;
+
+    private Marker marcadorAereo;
+    private LatLng latitud_y_longitud;
+    private GoogleMap.OnMyLocationChangeListener LocationCListener;
     private GoogleMap map;
 
     @Override
@@ -67,7 +62,6 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
                 enfocarBaseAerea();
             }
         });
-
         bEnfocarBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,10 +74,10 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap map) {
         this.map = map;
         final GoogleMap map2 = map;
-        latylon = new LatLng(Fragment2.latitud, Fragment2.longitud);
+        latitud_y_longitud = new LatLng(Fragment2.latitud, Fragment2.longitud);
         map2.setMyLocationEnabled(true);
         marcadorAereo = map.addMarker(new MarkerOptions()
-                .position(latylon));
+                .position(latitud_y_longitud));
 
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -104,18 +98,25 @@ public class Fragment3 extends Fragment implements OnMapReadyCallback {
                 if(map2 != null){
                     map2.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
                     map2.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                    latitud_y_longitud = new LatLng(Fragment2.latitud, Fragment2.longitud);
                     marcadorAereo = map2.addMarker(new MarkerOptions()
-                            .position(latylon));
+                            .position(latitud_y_longitud));
                 }
             }
         };
     }
 
+    /**
+     * enfocarBaseAerea: Obtiene los datos de latitud y longitud del marcador aereo y lo muestra en el mapa.
+     */
     private void enfocarBaseAerea(){
         LatLng loc = marcadorAereo.getPosition();
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
     }
 
+    /**
+     * enfocarBaseAerea: Obtiene los datos de latitud y longitud del usuario y lo muestra en el mapa.
+     */
     private void enfocarBaseTerrena(){
         Location location = map.getMyLocation();
         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());

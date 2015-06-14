@@ -4,17 +4,12 @@ import java.io.IOException;
 
 /**
  * Created by JCORREA on 30/03/2015.
- * Esta clase tinen el unico objetivo de comunicar al Piloto de Ramon
- * los movimientos que tiene que realiza.
+ * Esta clase tinen el unico objetivo de comunicar al Piloto de Ramon los movimientos que tiene que realizar.
  * Contiene todas las instrucciones que Ramon soporta.
  */
 public class Torre{
 
-    //CORREA: NO SERA BUEN IDEA HACER UN METODO QUE LLAMEN TODOS LOS LOS METODOS QUE ENVIAN UN COMANDO
-    //EN EL QUE COMPRUEBEN PRIMERO SI ESTA CONECTADA LA ANTENA??? PARA ENVIAR UN MENSAJE DE QUE NO HAY
-    //ANTENA O LO QUE SEA...
-
-
+    //Protocolo:
     public static final char MODO_ESTATICO = '0';
     public static final char DIR_IZQUIERDA = '1';
     public static final char DIR_DERECHA = '2';
@@ -27,39 +22,22 @@ public class Torre{
     private static final char ON_OFF_MOTORES = '9';
     private static final char INICIO_CONEXION = 'A';
 
-    public static boolean desplazar(char direccion){
-
-        Conexion.escribe((byte)direccion);
-        return true;
+    public static void estabilizar(){ Conexion.escribe((byte)MODO_ESTATICO);}
+    public static void subir(){ Conexion.escribe((byte)DIR_SUBIR); }
+    public static void bajar(){ Conexion.escribe((byte)DIR_BAJAR); }
+    public static void avanzar(){ Conexion.escribe((byte)DIR_ADELANTE); }
+    public static void retroceder(){ Conexion.escribe((byte)DIR_ATRAS); }
+    public static void izquierda(){
+        Conexion.escribe((byte)DIR_IZQUIERDA);
     }
-    public static void subir(){
-        Conexion.escribe((byte)DIR_SUBIR);
-    }
-    public static void bajar(){
-        Conexion.escribe((byte)DIR_BAJAR);
-    }
-    public static void aterriza(){
+    public static void derecha(){Conexion.escribe((byte)DIR_DERECHA); }
+    public static void aterrizar(){
         Conexion.escribe((byte)ATERRIZA);
     }
-    public static void guardarTrenAterrizaje(){
-        Conexion.escribe((byte)TREN_ATERRIZAJE_CAMBIOESTADO);
-    }
-    public static void despliegaTrenAterrizaje(){
-        Conexion.escribe((byte)TREN_ATERRIZAJE_CAMBIOESTADO);
-    }
-    /**
-     * Este metodo cambia el estado de Ramon de encendido a apagado
-     * o de pagado a encendido dependiendo del estado en el que se encuentre
-     */
+    public static void guardarTrenAterrizaje(){ Conexion.escribe((byte)TREN_ATERRIZAJE_CAMBIOESTADO); }
+    public static void despliegaTrenAterrizaje(){ Conexion.escribe((byte)TREN_ATERRIZAJE_CAMBIOESTADO); }
     public static void switchMotores(){
         Conexion.escribe((byte)ON_OFF_MOTORES);
     }
-    public static boolean inicioConexion() throws IOException{
-
-        Conexion.escribe((byte)INICIO_CONEXION);
-        if(Conexion.pruebaConexion())
-            return true;
-        else
-            return false;
-    }
+    public static void inicioConexion(){ Conexion.escribe((byte)INICIO_CONEXION); }
 }

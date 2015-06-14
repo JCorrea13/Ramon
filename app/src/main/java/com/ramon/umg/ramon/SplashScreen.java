@@ -13,7 +13,7 @@ public class SplashScreen extends Activity {
     /**
      * TIEMPO_SPLASH_SCREEN: Variable constante que determina el tiempo que se mostrara la pantalla de carga.
      */
-    private final static int TIEMPO_SPLASH_SCREEN = 2000;
+    private final static int TIEMPO_SPLASH_SCREEN = 2200;
 
     @Override
     public void onCreate(Bundle savedInstanceState){

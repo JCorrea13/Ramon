@@ -1,6 +1,6 @@
 <resources>
     <!--Basicos, no cambiar-->
-    <string name="app_name">App Ramón</string>
+    <string name="app_name">PiloTower</string>
     <string name="title_section1">Controles</string>
     <string name="title_section2">Sensores</string>
     <string name="title_section3">Mapeo</string>
